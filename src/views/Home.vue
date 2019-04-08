@@ -85,7 +85,7 @@ table {
 }
 th,
 td {
-  border: 1px solid black;
+  border: 1px solid #575757;
 }
 .search-input {
   margin-bottom: 1em;
