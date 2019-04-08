@@ -19,7 +19,7 @@ const store = new Vuex.Store({
 
 export default store;
 
-fetch("http://n9e5v4d8.ssl.hwcdn.net/repos/weeklyRivensPC.json")
+fetch("https://n9e5v4d8.ssl.hwcdn.net/repos/weeklyRivensPC.json")
   .then(result => result.json())
   .then(rivens => {
     store.commit("setRivens", rivens);
