@@ -1,37 +1,36 @@
 <template>
   <div class="home">
-    <input type="text" v-model="searchInput" placeholder="Search..." class="search-input">
-    <table>
-      <tr>
-        <td @click="orderBy('itemType', $event)">itemType</td>
-        <td @click="orderBy('compatibility', $event)">compatibility</td>
-        <td @click="orderBy('rerolled', $event)">rerolled</td>
-        <td @click="orderBy('avg', $event)">avg</td>
-        <td @click="orderBy('stddev', $event)">stddev</td>
-        <td @click="orderBy('min', $event)">min</td>
-        <td @click="orderBy('max', $event)">max</td>
-        <td @click="orderBy('pop', $event)">pop</td>
-        <td @click="orderBy('median', $event)">median</td>
-      </tr>
-      <tr
-        v-for="riven of rivens"
-        :key="riven.itemType + '.' + riven.compatibility + '.' + riven.rerolled"
-      >
-        <td>{{riven.itemType}}</td>
-        <td>{{riven.compatibility}}</td>
-        <td>{{ riven.rerolled ? 'Yes' : 'No' }}</td>
-        <td>{{riven.avg}}</td>
-        <td>{{riven.stddev}}</td>
-        <td>{{riven.min}}</td>
-        <td>{{riven.max}}</td>
-        <td>{{riven.pop}}</td>
-        <td>{{riven.median}}</td>
-      </tr>
+    <div class="search-container p-2">
+      <b-form-input type="text" v-model="searchInput" placeholder="Search..."></b-form-input>
+    </div>
+    <table class="table b-table table-striped">
+      <thead>
+        <tr>
+          <th
+            v-for="(field, index) in fields"
+            :key="`${field.key}-${index}`"
+            class="header"
+            @click="orderBy(field)"
+          >
+            <span class="header-ctn">
+              {{ field.key }}
+              <font-awesome-icon class="sort-icon" :icon="sortIcon(field.sort)"/>
+            </span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(riven, index) in rivens" :key="index">
+          <td v-for="(value, key) of riven" :key="key">{{ value }}</td>
+        </tr>
+      </tbody>
     </table>
   </div>
 </template>
 
 <script>
+import _ from "lodash";
+
 const includesWithoutCase = (str, val) => {
   if (!str) return false;
   return str.toLowerCase().includes(val.toLowerCase());
@@ -41,38 +40,112 @@ export default {
   data() {
     return {
       searchInput: "",
-      order: { by: "compatibility", desc: false }
+      order: { by: "compatibility", desc: false },
+      fields: [
+        {
+          key: "itemType",
+          sort: {
+            state: false,
+            asc: true
+          }
+        },
+        {
+          key: "compatibility",
+          sort: {
+            state: true,
+            asc: true
+          }
+        },
+        {
+          key: "rerolled",
+          sort: {
+            state: false,
+            asc: true
+          }
+        },
+        {
+          key: "avg",
+          sort: {
+            state: false,
+            asc: true
+          }
+        },
+        {
+          key: "stddev",
+          sort: {
+            state: false,
+            asc: true
+          }
+        },
+        {
+          key: "min",
+          sort: {
+            state: false,
+            asc: true
+          }
+        },
+        {
+          key: "max",
+          sort: {
+            state: false,
+            asc: true
+          }
+        },
+        {
+          key: "pop",
+          sort: {
+            state: false,
+            asc: true
+          }
+        },
+        {
+          key: "median",
+          sort: {
+            state: false,
+            asc: true
+          }
+        }
+      ]
     };
   },
   methods: {
-    orderBy(value) {
-      let orderBy = value;
-      console.log(orderBy);
-      if (orderBy === this.order.by)
-        return (this.order.desc = !this.order.desc);
-      this.order.by = orderBy;
+    orderBy(field) {
+      console.log(field);
+      if (!field.sort.state) {
+        field.sort.state = true;
+      } else {
+        if (field.sort.asc) {
+          field.sort.asc = false;
+        } else {
+          field.sort.asc = true;
+          field.sort.state = false;
+        }
+      }
+    },
+    sortIcon(sort) {
+      if (sort.state) {
+        return sort.asc ? "sort-up" : "sort-down";
+      }
+      return "sort";
     }
   },
   computed: {
     rivens() {
-      const _self = this;
       if (!this.$store.state.init) return [];
-      return this.$store.state.rivens
-        .slice()
-        .filter(
-          riven =>
-            includesWithoutCase(riven.compatibility, this.searchInput) ||
-            includesWithoutCase(riven.itemType, this.searchInput)
-        )
-        .sort((a, b) => {
-          var nameA = a[_self.order.by],
-            nameB = b[_self.order.by];
-          if (nameA < nameB)
-            //sort string ascending
-            return _self.order.desc ? 1 : -1;
-          if (nameA > nameB) return _self.order.desc ? -1 : 1;
-          return 0; //default return value (no sorting)
-        });
+      console.log(!this.order.desc);
+      return _.orderBy(
+        this.$store.state.rivens
+          .slice()
+          .filter(
+            riven =>
+              includesWithoutCase(riven.compatibility, this.searchInput) ||
+              includesWithoutCase(riven.itemType, this.searchInput)
+          ),
+        this.fields.filter(field => field.sort.state).map(field => field.key),
+        this.fields
+          .filter(field => field.sort.state)
+          .map(field => (field.sort.asc ? "asc" : "desc"))
+      );
     }
   }
 };
@@ -85,9 +158,18 @@ table {
 }
 th,
 td {
-  border: 1px solid #575757;
+  /* border: 1px solid #575757; */
 }
-.search-input {
-  margin-bottom: 1em;
+th.header {
+  text-align: center;
+  cursor: pointer;
+}
+span.header-ctn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.sort-icon {
+  margin-left: 2px;
 }
 </style>
