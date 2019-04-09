@@ -1,7 +1,12 @@
 <template>
   <div class="home">
     <div class="search-container p-2">
-      <b-form-input type="text" v-model="searchInput" placeholder="Search..."></b-form-input>
+      <b-input-group>
+        <b-input-group-prepend is-text>
+          <font-awesome-icon icon="search"/>
+        </b-input-group-prepend>
+        <b-form-input type="text" v-model="searchInput" placeholder="Search..."></b-form-input>
+      </b-input-group>
     </div>
     <table class="table b-table table-striped">
       <thead>
@@ -178,7 +183,8 @@ span.header-ctn {
 .sort-icon {
   margin-left: 2px;
 }
-input.form-control {
+input.form-control,
+.input-group-prepend > .input-group-text {
   color: rgb(201, 197, 191);
   background-color: rgb(23, 24, 28);
   border-top-color: rgb(54, 63, 72);
