@@ -156,13 +156,19 @@ table {
   width: 100%;
   border-collapse: collapse;
 }
-th,
-td {
-  /* border: 1px solid #575757; */
+
+table.table thead tr th {
+  border-bottom: none;
+  border-top: none;
 }
+
 th.header {
   text-align: center;
   cursor: pointer;
+  color: rgb(217, 215, 211);
+}
+td {
+  color: rgb(217, 215, 211);
 }
 span.header-ctn {
   display: flex;
@@ -171,5 +177,13 @@ span.header-ctn {
 }
 .sort-icon {
   margin-left: 2px;
+}
+input.form-control {
+  color: rgb(201, 197, 191);
+  background-color: rgb(23, 24, 28);
+  border-top-color: rgb(54, 63, 72);
+  border-right-color: rgb(54, 63, 72);
+  border-bottom-color: rgb(54, 63, 72);
+  border-left-color: rgb(54, 63, 72);
 }
 </style>

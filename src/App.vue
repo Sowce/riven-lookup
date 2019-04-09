@@ -18,4 +18,8 @@ html {
   border-color: #575757;
   color: #e8e7e3;
 }
+body {
+  color: rgb(217, 215, 211) !important;
+  background-color: rgb(23, 24, 28) !important;
+}
 </style>
