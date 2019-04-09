@@ -16,12 +16,16 @@ import {
   faSortDown,
   faSearch
 } from "@fortawesome/free-solid-svg-icons";
+
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
+
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 library.add(faSearch);
 library.add(faSort);
 library.add(faSortUp);
 library.add(faSortDown);
+library.add(faGithub);
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 

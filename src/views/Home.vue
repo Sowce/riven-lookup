@@ -6,6 +6,11 @@
           <font-awesome-icon icon="search"/>
         </b-input-group-prepend>
         <b-form-input type="text" v-model="searchInput" placeholder="Search..."></b-form-input>
+        <b-input-group-append is-text>
+          <a href="https://github.com/Sowce/riven-lookup" target="_blank" rel="noopener noreferrer">
+            <font-awesome-icon :icon="['fab', 'github']"/>
+          </a>
+        </b-input-group-append>
       </b-input-group>
     </div>
     <table class="table b-table table-striped">
@@ -160,16 +165,17 @@ export default {
 table {
   width: 100%;
   border-collapse: collapse;
+  margin-top: 4em;
 }
 
 table.table thead tr th {
   border-bottom: none;
   border-top: none;
-  padding-top: 4em;
 }
 .search-container {
   position: fixed;
   width: 100%;
+  top: 0.5em;
 }
 th.header {
   text-align: center;
@@ -188,7 +194,8 @@ span.header-ctn {
   margin-left: 2px;
 }
 input.form-control,
-.input-group-prepend > .input-group-text {
+.input-group-prepend > .input-group-text,
+.input-group-append > .input-group-text {
   color: rgb(201, 197, 191);
   background-color: rgb(23, 24, 28);
   border-top-color: rgb(54, 63, 72);
