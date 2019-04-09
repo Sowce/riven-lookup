@@ -165,8 +165,12 @@ table {
 table.table thead tr th {
   border-bottom: none;
   border-top: none;
+  padding-top: 4em;
 }
-
+.search-container {
+  position: fixed;
+  width: 100%;
+}
 th.header {
   text-align: center;
   cursor: pointer;
