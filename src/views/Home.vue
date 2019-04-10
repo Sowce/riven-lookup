@@ -165,7 +165,7 @@ export default {
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 4em;
+  margin-top: 3em;
 }
 
 table.table thead tr th {
@@ -175,7 +175,9 @@ table.table thead tr th {
 .search-container {
   position: fixed;
   width: 100%;
-  top: 0.5em;
+  padding-top: 0.5em;
+  top: 0px;
+  z-index: 50000;
 }
 th.header {
   text-align: center;
@@ -195,7 +197,8 @@ span.header-ctn {
 }
 input.form-control,
 .input-group-prepend > .input-group-text,
-.input-group-append > .input-group-text {
+.input-group-append > .input-group-text,
+.search-container {
   color: rgb(201, 197, 191);
   background-color: rgb(23, 24, 28);
   border-top-color: rgb(54, 63, 72);
