@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import _ from "lodash";
+import orderBy from "lodash/orderBy";
 
 const includesWithoutCase = (str, val) => {
   if (!str) return false;
@@ -120,7 +120,6 @@ export default {
   },
   methods: {
     orderBy(field) {
-      console.log(field);
       if (!field.sort.state) {
         field.sort.state = true;
       } else {
@@ -142,8 +141,7 @@ export default {
   computed: {
     rivens() {
       if (!this.$store.state.init) return [];
-      console.log(!this.order.desc);
-      return _.orderBy(
+      return orderBy(
         this.$store.state.rivens
           .slice()
           .filter(
